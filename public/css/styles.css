@@ -1,0 +1,28 @@
+/* styles.css */
+
+.custom-header {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    color: #ffffff;
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .header-content {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+} */
+
+.custom-header .display-4 {
+    font-size: 3rem;
+}
+
+.custom-header .lead {
+    font-size: 1.25rem;
+}

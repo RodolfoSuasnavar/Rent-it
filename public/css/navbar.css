@@ -1,0 +1,114 @@
+.bg-navy {
+    background-color: #001f3f; /* Color azul marino */
+    z-index: 1030; /* Asegurando que el navbar esté por encima de otros elementos */
+
+}
+
+.navbar-nav .form-select {
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000000; /* Color del texto negro */
+    border: 1px solid #ccc; /* Borde gris claro */
+}
+
+.navbar-nav .form-select:focus {
+    background-color: #ffffff; /* Mantiene el fondo blanco al enfocarlo */
+    border-color: #007bff; /* Color del borde al enfocarlo */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra azul al enfocarlo */
+    color: #000000; /* Color del texto negro al enfocarlo */
+}
+
+header {
+    background-image: url('/public/img/casa-vacaciones.jpg'); /* Cambia 'tu-imagen.jpg' por el nombre de tu imagen */
+    background-size: cover; /* Para que cubra todo el espacio */
+    background-position: center; /* Centra la imagen */
+    color: white; /* Cambia el color del texto a blanco para que resalte */
+    padding: 20px 0; /* Ajusta el padding según sea necesario */
+}
+
+.btn-navy {
+    background-color: #001f3f; /* Color navy */
+    color: #ffffff; /* Texto blanco */
+}
+
+.btn-navy:hover {
+    background-color: #004080; /* Color navy más claro en hover */
+    color: #ffffff; /* Texto blanco en hover */
+}
+
+.portfolio-img {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    height: 200px; /* Establece una altura fija */
+    object-fit: cover; /* Recorta la imagen para mantener la proporción */
+    object-position: center; /* Centra la imagen */
+}
+.img-container {
+    width: 100%;
+    height: 250px; /* Establece una altura fija */
+    overflow: hidden; /* Oculta el desbordamiento de la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portfolio-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ajusta la imagen dentro del contenedor manteniendo su proporción */
+    object-position: center; /* Centra la imagen */
+}
+
+
+
+
+.navbar-brand {
+    font-size: 1.5rem; /* Tamaño grande para el nombre de la página */
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+.form-select.bg-navy {
+    border: none;
+    color: white;
+}
+
+.form-select.bg-navy option {
+    color: black;
+}
+.bg-navy {
+    background-color: #001f3f;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 1rem;
+}
+
+.navbar-nav .form-select {
+    background-color: #001f3f;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    margin-right: 1rem;
+}
+
+.navbar-brand {
+    margin-right: 2rem;
+}
+
+.navbar-nav .dropdown-menu {
+    background-color: #001f3f;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+    color: #ffffff;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+    background-color: #ffffff;
+    color: #001f3f;
+}

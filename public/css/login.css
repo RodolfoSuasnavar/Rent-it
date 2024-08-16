@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    border: none;
+    border-radius: 0; /* Quitar esquinas redondeadas */
+    overflow: hidden;
+    height: 70vh; /* Hacer la tarjeta más grande */
+}
+
+.card img {
+    object-fit: cover; /* Asegurarse de que la imagen ocupe todo el espacio disponible */
+    height: 100%;
+    width: 100%;
+}
+
+.rent-it-text {
+    top: 50%; /* Centrar verticalmente */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    z-index: 10;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: #002366;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #001f4d;
+}
+
+p {
+    text-align: center;
+    color: #555;
+}
+
+p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}

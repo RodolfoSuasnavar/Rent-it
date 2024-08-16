@@ -1,0 +1,93 @@
+body {
+    background-color: #f7f7f7;
+}
+.container {
+    margin-top: 50px;
+}
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+    background-color: #001f3f;
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.form-label {
+    font-weight: bold;
+}
+.btn-primary {
+    background-color: #001f3f;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #004080;
+}
+
+/* public/css/form-custom.css */
+/* Asegúrate de que el fondo del navbar sea de un color sólido */
+.bg-navy {
+    background-color: #001f3f !important;
+}
+
+/* Asegúrate de que el texto del navbar sea de un color contrastante */
+.navbar-dark .navbar-nav .nav-link {
+    color: white !important;
+    opacity: 1; /* Asegura que la opacidad del texto sea 1 */
+}
+
+.navbar-dark .navbar-brand {
+    color: white !important;
+    opacity: 1; /* Asegura que la opacidad del texto sea 1 */
+}
+
+/* Asegúrate de que el dropdown sea visible */
+.navbar-dark .dropdown-menu {
+    background-color: #001f3f;
+    color: white;
+}
+
+/* Asegura que los elementos del dropdown sean visibles */
+.navbar-dark .dropdown-item {
+    color: white !important;
+}
+
+/* Asegura que el color de los elementos al ser seleccionados */
+.navbar-dark .dropdown-item:hover, .navbar-dark .dropdown-item:focus {
+    background-color: #001f3f;
+    color: white !important;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .navbar {
+    background-color: #001f3f;
+  }
+
+  .navbar-brand {
+    color: #fff;
+  }
+
+  .navbar-nav .nav-link {
+    color: #fff;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: #f8f9fa;
+  }
+
+  .dropdown-menu {
+    background-color: #001f3f;
+  }
+
+  .dropdown-menu .dropdown-item {
+    color: #fff;
+  }
+
+  .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #001f3f;
+  }

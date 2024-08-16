@@ -1,0 +1,19 @@
+.custom-column {
+    padding: 0 5px; /* Reduce el padding horizontal entre columnas */
+}
+
+.img-container {
+    width: 100%;
+    height: 300px; /* Altura fija para todas las imágenes */
+    overflow: hidden; /* Oculta el desbordamiento para las imágenes grandes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none; /* Asegúrate de que no haya bordes */
+}
+
+.portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ajusta la imagen para que se contenga dentro del contenedor */
+}

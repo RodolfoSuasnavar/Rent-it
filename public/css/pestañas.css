@@ -1,0 +1,20 @@
+.portfolio-modal .modal-body .row .col-md-6 img {
+    max-width: 100%;
+    height: auto;
+}
+
+.portfolio-modal .modal-body .row .col-md-6.text-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.portfolio-modal .modal-body .row .col-md-6.text-start h2,
+.portfolio-modal .modal-body .row .col-md-6.text-start p {
+    margin-bottom: 1rem;
+}
+
+.portfolio-modal .modal-body .row .col-md-6.text-start button {
+    width: 100%;
+    margin-top: 1rem;
+}
