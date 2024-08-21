@@ -1,32 +1,53 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .card {
     border: none;
-    border-radius: 0; /* Quitar esquinas redondeadas */
+    border-radius: 0;
     overflow: hidden;
-    height: 70vh; /* Hacer la tarjeta más grande */
+    display: flex;
+    height: 85vh; /* Asegurar que la tarjeta ocupe toda la altura de la vista */
 }
 
-.card img {
-    object-fit: cover; /* Asegurarse de que la imagen ocupe todo el espacio disponible */
-    height: 100%;
-    width: 100%;
+.cardimg {
+    object-fit: cover;
+    width: 50%; /* La imagen ocupa el 50% del ancho de la tarjeta */height: 100%; /* La imagen ocupa el 100% de la altura de la tarjeta */
 }
 
 .rent-it-text {
-    top: 50%; /* Centrar verticalmente */
-    left: 50%; /* Centrar horizontalmente */
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     font-size: 3rem;
     z-index: 10;
+    position: absolute;
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Centrar verticalmente el contenido del formulario */align-items: center; /* Centrar horizontalmente el contenido del formulario */padding: 10px; /* Ajustar el padding para mantener el tamaño compacto */width: 50%; /* El contenido del formulario ocupa el 50% del ancho de la tarjeta */height: 100%; /* Asegurar que el contenido del formulario ocupe toda la altura de la tarjeta */box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho y alto */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Asegurar que el formulario ocupe todo el ancho disponible */
+}
+
+.form-outline {
+    margin-bottom: 1px; /* Reducir el espacio debajo de cada campo de entrada */
+}
+
+input.form-control {
+    margin-bottom: 1px; /* Reducir el espacio debajo de cada campo de entrada */padding: 8px; /* Ajustar el padding para mantener el tamaño compacto */font-size: 0.875rem; /* Reducir el tamaño de fuente si es necesario */
+}
+
+button {
+    margin-top: 10px; /* Espacio arriba del botón para mantener la separación mínima */
 }
 
 .btn-primary {
@@ -43,11 +64,21 @@ p {
     color: #555;
 }
 
-p a {
+pa {
     color: #007bff;
     text-decoration: none;
 }
 
-p a:hover {
+pa:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .cardimg, .card-body {
+        width: 100%; /* En pantallas pequeñas, hacer que la imagen y el contenido ocupen todo el ancho */
+    }
+
+    .rent-it-text {
+        font-size: 2rem; /* Reducir el tamaño del texto en pantallas pequeñas */
+    }
 }

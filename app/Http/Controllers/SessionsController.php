@@ -13,9 +13,12 @@ class SessionsController extends Controller
         return view('auth.login');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        if(auth()->attempt(request(['email', 'password'])) == false){
+        $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember'); // Obtener el valor del checkbox
+
+        if (!Auth::attempt($credentials, $remember)) {
             return back()->withErrors([
                 'message' => 'Las credenciales no coinciden con nuestros registros',
             ]);
@@ -29,6 +32,8 @@ class SessionsController extends Controller
 
 
         return redirect()->to('/');
+
+
 
     }
 

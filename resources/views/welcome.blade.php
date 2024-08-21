@@ -41,9 +41,22 @@
                                                 <p class="mb-4">Descripción: {{ $item->descripcion }}</p>
                                                 <p class="mb-4">Precio por dia: {{ $item->precio_por_dia }}</p>
                                                 <p class="mb-4">Categoria: {{ $item->categoria->nombre }}</p>
-                                                <button class="btn btn-navy mt-2" data-bs-dismiss="modal">
+
+                                                @if(Auth::check())
+                                                <!-- Si el usuario está autenticado, redirige a la vista de rentar -->
+                                                <a href="{{ route('renta.index', $item->id) }}" class="btn btn-navy mt-2">
                                                     Rentar
-                                                </button>
+                                                </a>
+                                            @else
+
+                                                {{-- <button class="btn btn-navy mt-2" data-bs-dismiss="modal">
+                                                    Rentar
+                                                </button> --}}
+                                                <!-- Si el usuario no está autenticado, redirige al login -->
+                                                <a href="{{ route('login.index') }}" class="btn btn-navy mt-2">
+                                                    Rentar
+                                                </a>
+                                            @endif
                                             </div>
                                         </div>
                                     </div>

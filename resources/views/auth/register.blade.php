@@ -78,7 +78,7 @@
 <script>
 function soloLetras(event) {
     var key = event.key;
-    var isLetter = /^[A-Za-z]$/;
+    var isLetterOrSpace = /^[A-Za-z\s]$/; // Permite letras y espacios
     var isControlKey = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key);
 
     // Permite las teclas de control
@@ -86,8 +86,8 @@ function soloLetras(event) {
         return true;
     }
 
-    // Bloquea la entrada si no es una letra
-    if (!isLetter.test(key)) {
+    // Bloquea la entrada si no es una letra o un espacio
+    if (!isLetterOrSpace.test(key)) {
         event.preventDefault();
         return false;
     }

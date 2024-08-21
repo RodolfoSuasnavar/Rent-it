@@ -22,8 +22,7 @@ class UserAuth
         return $next($request);
             }
     }
-    return redirect()->to('/')->with('error', 'No tienes permiso para acceder a esta página.');
-    ;
+    return back()->with('error', 'No tienes permiso para acceder a esta página.');
     }
 
 }

@@ -27,19 +27,26 @@
                                         @csrf
                                         <div class="form-outline mb-4 text-start">
                                             <label class="form-label" for="email">Email</label>
-                                            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Introduce tu Correo" autofocus required />
+                                            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Introduce tu Correo" autofocus autocomplete="off" required />
                                         </div>
                                         <div class="form-outline mb-4 text-start">
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Introduce tu Contraseña" required/>
+                                            <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Introduce tu Contraseña" autocomplete="off" required/>
+                                        </div>
+                                        <div class="form-outline mb-4 text-start">
+                                            <label for="remember">
+                                                <input id="remember" type="checkbox" name="remember">
+                                                <span class="">Recuerdame</span>
+                                            </label>
                                         </div>
                                         @error('message')
                                         <p class="alert alert-danger" role="alert"> {{ $message }}</p>
                                         @enderror
+                                        <p><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></p>
+
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Acceder</button>
                                         <br><br>
                                         <p>No tienes una cuenta? <a href="{{ route('register.index') }}"> Registrate aquí</a></p>
-
                                     </form>
                                 </div>
                             </div>
