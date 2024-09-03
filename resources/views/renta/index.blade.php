@@ -48,7 +48,8 @@
                                     data-name="Rent-it"
                                     data-description="Pagar ahora"
                                     data-currency="mxn"
-                                    data-amount="{{ old('amount', 0) }}"> <!-- Monto en centavos (se inicializa en 0) -->
+                                    data-amount="{{ old('amount', 0) }}"
+                                    data-label="Pagar con tarjeta"> <!-- Monto en centavos (se inicializa en 0) -->
                                 </script>
                             </form>
                         </div>
@@ -84,31 +85,34 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const startDateInput = document.getElementById('start_date');
-    const endDateInput = document.getElementById('end_date');
-    const pricePerDay = parseFloat(document.getElementById('price-per-day').value);
-    const commission = parseFloat(document.getElementById('commission').value);
-    const totalInput = document.getElementById('total');
+    document.addEventListener('DOMContentLoaded', function() {
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+        const pricePerDay = parseFloat(document.getElementById('price-per-day').value);
+        const commissionPercentage = 10; // Comisión del 10%
+        const totalInput = document.getElementById('total');
 
-    function calculateTotal() {
-        const startDate = new Date(startDateInput.value);
-        const endDate = new Date(endDateInput.value);
+        function calculateTotal() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
 
-        if (startDate && endDate && startDate <= endDate) {
-            const diffTime = Math.abs(endDate - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Incluye el primer día
+            if (startDate && endDate && startDate <= endDate) {
+                const diffTime = Math.abs(endDate - startDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Incluye el primer día
 
-            const total = (diffDays * pricePerDay) + commission;
-            totalInput.value = total.toFixed(2); // Aquí solo el valor numérico, sin 'pesos'
-        } else {
-            totalInput.value = '';
+                const subtotal = diffDays * pricePerDay;
+                const commission = (subtotal * commissionPercentage) / 100;
+                const total = subtotal + commission;
+                totalInput.value = total.toFixed(2); // Muestra el total con dos decimales
+            } else {
+                totalInput.value = '';
+            }
         }
-    }
 
-    startDateInput.addEventListener('change', calculateTotal);
-    endDateInput.addEventListener('change', calculateTotal);
-});
-</script>
+        startDateInput.addEventListener('change', calculateTotal);
+        endDateInput.addEventListener('change', calculateTotal);
+    });
+    </script>
+
 
 @endsection

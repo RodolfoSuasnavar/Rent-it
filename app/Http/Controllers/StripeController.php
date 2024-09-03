@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Renta;
 use App\Models\Pago;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Producto;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProductRented;
+
+
 
 // use Illuminate\Http\Request;
 // use Stripe\Stripe;
@@ -32,7 +37,7 @@ class StripeController extends Controller
     $producto_id = $request->input('producto_id');
     $start_date = $request->input('start_date');
     $end_date = $request->input('end_date');
-    $total = $request->input('amount');
+    $total = $request->input('total');
 
         try {
             // Crea un cliente en Stripe
@@ -63,6 +68,12 @@ class StripeController extends Controller
                 'tipo_pago' => 'Stripe', // Tipo de pago
                 // 'stripe_charge_id' => $charge->id, // Omitido
             ]);
+            $producto = Producto::find($producto_id);
+
+            // Enviar correo al dueño del producto
+            Mail::to($producto->user->email)->send(new ProductRented($renta));
+
+
 
             // Si todo va bien, puedes redirigir con un mensaje de éxito
             Session::flash('success', 'Pago realizado con éxito');

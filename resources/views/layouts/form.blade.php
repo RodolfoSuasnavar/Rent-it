@@ -63,7 +63,7 @@
                         <a class="nav-link" href="{{ route('producto.index') }}">Mis Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rentar</a>
+                        <a class="nav-link" href="{{ route('renta.misRentados') }}">Rentar</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contacto.crear') }}">Contacto</a>

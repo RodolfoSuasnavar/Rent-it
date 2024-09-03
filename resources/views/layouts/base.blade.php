@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="{{asset('css/pestañas.css')}}">
   <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
+  <link rel="stylesheet" href="{{asset('css/renta.css')}}">
   <link rel="shortcut icon" href="{{asset('img/rent-it.ico')}}" type="image/x-icon">
   <script src="https://js.stripe.com/v3/"></script>
 
@@ -73,7 +74,7 @@
                         <a class="nav-link" href="{{ route('producto.index') }}">Mis Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Rentar</a>
+                        <a class="nav-link" href="{{ route('renta.misRentados') }}">Rentar</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contacto.crear') }}">Contacto</a>

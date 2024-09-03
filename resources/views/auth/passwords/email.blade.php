@@ -6,6 +6,8 @@
     <title>Restablecer Contraseña - Rent-It</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="{{asset('img/rent-it.ico')}}" type="image/x-icon">
+
 </head>
 <body>
     <section class="vh-100" style="background-color: #ededed;">
@@ -37,7 +39,7 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button style="background-color: #002366;" type="submit" class="btn btn-primary">
                                         {{ __('Enviar Enlace de Restablecimiento') }}
                                     </button>
                                 </div>

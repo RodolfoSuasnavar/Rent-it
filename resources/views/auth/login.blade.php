@@ -45,8 +45,11 @@
                                         <p><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></p>
 
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Acceder</button>
-                                        <br><br>
-                                        <p>No tienes una cuenta? <a href="{{ route('register.index') }}"> Registrate aquí</a></p>
+
+                                        <div class="mt-4 text-center">
+                                                <p>No tienes una cuenta? <a href="{{ route('register.index') }}"> Registrate aquí</a></p>
+
+                                        </div>
                                     </form>
                                 </div>
                             </div>

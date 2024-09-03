@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth', 'auth.user']], function () {
 
     //renta
     route::get('/renta/{id}', [RentaController::class, 'index'])->name('renta.index');
-
+    Route::get('/mis-rentados', [RentaController::class, 'misRentados'])->name('renta.misRentados');
 
     });
 

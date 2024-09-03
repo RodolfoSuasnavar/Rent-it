@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Renta extends Model
 {
     use HasFactory;
@@ -16,7 +16,10 @@ class Renta extends Model
         'fecha_final',
         'precio_total',
     ];
-
+    protected $casts = [
+        'fecha_inicio' => 'datetime',
+        'fecha_final' => 'datetime',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
