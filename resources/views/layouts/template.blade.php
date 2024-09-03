@@ -9,12 +9,12 @@
     {{-- <link rel="icon" type="image/x-icon" href="template/assets/favicon.ico" /> --}}
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
-    <link href="template/css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/pestañas.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/contenedor.css">
-    <link rel="shortcut icon" href="img/rent-it.ico" type="image/x-icon">
+    <link href="{{asset('template/css/styles.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('css/pestañas.css')}}">
+    <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/contenedor.css')}}">
+    <link rel="shortcut icon" href="{{asset('img/rent-it.ico')}}" type="image/x-icon">
 
     {{-- <link rel="stylesheet" href="css/footer.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMyRB+8F1gfOHhP/6mK7E4p1owmRtF3k0E5b4Zw" crossorigin="anonymous">

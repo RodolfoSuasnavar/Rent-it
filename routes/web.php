@@ -10,8 +10,13 @@ use App\Http\Controllers\PortafolioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
 
+use Illuminate\Support\Facades\Auth;
 
+//Auth::routes();
 
 /*
 |--------------------------------------------------------------------------
@@ -23,20 +28,71 @@ use App\Http\Controllers\PasswordResetController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Reset Password
+// Ruta para mostrar el formulario de solicitud de enlace de restablecimiento
+Route::get('password/reset', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
+
+
+
+//API STRIPE
+
+// Route::get('/payment', [StripeController::class, 'showPaymentForm'])->name('payment.form');
+Route::post('/payment', [StripeController::class, 'processPayment'])->name('payment.process');
+
+Route::get('/payment', function () {
+    $total = 1000; // Supongamos que este es el monto en pesos
+    return view('pago_stripe', compact('total'));
+});
+Route::get('/payment/success', [StripeController::class, 'success'])->name('payment.success');
+Route::get('/payment/cancel', [StripeController::class, 'cancel'])->name('payment.cancel');
+
 
 Route::get('/', [PortafolioController::class, 'index'])->name('welcome');
 
 // Route::get('/admin', [AdminController::class, 'index'])
 //     ->name('admin.index')
 //     ->middleware('auth.admin');
+Route::fallback([UserController::class, 'show404']);
 
-// Route::group(['middleware' => ['auth', 'auth.admin']], function () {
+
+Route::group(['middleware' => ['auth', 'auth.admin']], function () {
     Route::get('/admin', [AdminController::class, 'index'])
-        ->name('admin.index')
-        ->middleware('auth.admin');
-// });
+        ->name('admin.index');
+
+    Route::get('/admin/categorias/{id}/productos', [AdminController::class, 'verProductos'])->name('admin.productos.ver');
+
+    Route::get('/admin/categoria/create',[CategoriaController::class, 'create'])->name('categoria.crear');
+    Route::post('/admin/categoria/create',[CategoriaController::class, 'store'])->name('categoria.store');
+    Route::get('/admin/categoria/show/{id}', [CategoriaController::class, 'show'])->name('categoria.show');
+    Route::get('/admin/categoria/edit/{id}', [CategoriaController::class, 'edit'])->name('categoria.edit');
+    Route::put('/admin/categoria/update/{id}', [CategoriaController::class, 'update'])->name('categoria.update');
+    Route::delete('/admin/categoria/destroy/{id}', [CategoriaController::class, 'destroy'])->name('categoria.destroy');
+});
+
+//usuarios
+Route::group(['middleware' => ['auth', 'auth.user']], function () {
+    Route::get('/user/productos', [ProductoController::class, 'index'])->name('producto.index');
+    Route::get('/user/producto/create', [ProductoController::class, 'create'])->name('producto.crear');
+    Route::post('/user/producto', [ProductoController::class, 'store'])->name('producto.store');
+
+    Route::get('/user/producto/show/{id}', [ProductoController::class, 'show'])->name('producto.show');
+    Route::get('/user/producto/edit/{id}', [ProductoController::class, 'edit'])->name('producto.edit');
+    Route::put('/user/producto/update/{id}', [ProductoController::class, 'update'])->name('producto.update');
+    Route::delete('/user/producto/destroy/{id}', [ProductoController::class, 'destroy'])->name('producto.destroy');
+
+    //contacto
+    Route::post('/contacto', [ContactoController::class, 'index'])->name('contacto.index');
+    Route::get('/contacto/create', [ContactoController::class, 'create'])->name('contacto.crear');
+    Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
+
+    //renta
+    route::get('/renta/{id}', [RentaController::class, 'index'])->name('renta.index');
 
 
+    });
 
 
 
@@ -64,34 +120,19 @@ Route::get('/logout', [SessionsController::class, 'destroy'])->middleware('auth'
 
 // Route::get('clientes/clientes', [ClienteController::class, 'index'])->name('clientes.clientes');
 
-Route::get('password/reset', [PasswordResetController::class, 'request'])->name('password.request');
-Route::post('password/email', [PasswordResetController::class, 'email'])->name('password.email');
-Route::get('password/reset/{token}', [PasswordResetController::class, 'reset'])->name('password.reset');
-Route::post('password/reset', [PasswordResetController::class, 'update'])->name('password.update');
+
+
+//restablecer contraseña
+Route::get('password/reset', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
 
 // Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 
 
-//usuarios
-Route::group(['middleware' => ['auth', 'auth.user']], function () {
-Route::get('/user/productos', [ProductoController::class, 'index'])->name('producto.index');
-Route::get('/user/producto/create', [ProductoController::class, 'create'])->name('producto.crear');
-Route::post('/user/producto', [ProductoController::class, 'store'])->name('producto.store');
-
-Route::get('/user/producto/show/{id}', [ProductoController::class, 'show'])->name('producto.show');
-Route::get('/user/producto/edit/{id}', [ProductoController::class, 'edit'])->name('producto.edit');
-Route::delete('/user/producto/destroy/{id}', [ProductoController::class, 'destroy'])->name('producto.destroy');
-
-//contacto
-Route::post('/contacto', [ContactoController::class, 'index'])->name('contacto.index');
-Route::get('/contacto/create', [ContactoController::class, 'create'])->name('contacto.crear');
-Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
-
-//renta
-route::get('/renta/{id}', [RentaController::class, 'index'])->name('renta.index');
 
 
-});
-
+// Auth::routes(['reset' => true]);
 
 

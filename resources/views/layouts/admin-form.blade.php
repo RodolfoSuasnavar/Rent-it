@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rent-It</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css">
-  <link href="template/css/styles.css" rel="stylesheet" />
+  <link href="{{ asset('template/css/styles.css') }}" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="{{asset('css/pestañas.css')}}">
-  <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/contacto.css')}}">
+  <link rel="stylesheet" href="{{ asset('css/pestañas.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/contacto.css') }}">
   <link rel="shortcut icon" href="{{ asset('img/rent-it.ico') }}" type="image/x-icon">
 
   {{-- <link rel="stylesheet" href="css/bootstrap.min.css"> --}}
@@ -51,24 +51,12 @@
 <body >
     <nav class="navbar navbar-expand-lg navbar-dark bg-navy">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('welcome') }}">Rent-it</a>
+            <a class="navbar-brand" href="{{ route('admin.index') }}">Rent-it</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav me-auto d-flex align-items-center">
-                    <li class="nav-item me-2">
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('producto.index') }}">Mis Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Rentar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contacto.crear') }}">Contacto</a>
-                    </li>
-                </ul>
+
                 <ul class="navbar-nav ms-auto d-flex align-items-center">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

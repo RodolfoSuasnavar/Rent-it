@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rent-It</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css">
-  <link href="template/css/styles.css" rel="stylesheet" />
+  <link href="{{ asset('template/css/styles.css') }}" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="css/pestañas.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="shortcut icon" href="img/rent-it.ico" type="image/x-icon">
+  <link rel="stylesheet" href="{{ asset('css/pestañas.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+  <link rel="shortcut icon" href="{{ asset('img/rent-it.ico') }}" type="image/x-icon">
 
   {{-- <link rel="stylesheet" href="css/bootstrap.min.css"> --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -27,6 +28,7 @@
         margin-bottom: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
 
 </style>
 {{-- <style>
@@ -59,7 +61,7 @@
 <body >
     <nav class="navbar navbar-expand-lg navbar-dark bg-navy">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('welcome') }}">Rent-it</a>
+            <a class="navbar-brand" href="{{ route('admin.index') }}">Rent-it</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -1,14 +1,15 @@
 @extends('layouts.form')
+
 @section('content')
-<h1>Crear Producto</h1>
-<form method="POST" action="{{ route('producto.store') }}" enctype="multipart/form-data">
-    @csrf
-    <div class="container mt-5">
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Crear Producto</h2>
+    <form method="POST" action="{{ route('producto.store') }}" enctype="multipart/form-data">
+        @csrf
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-8 col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Registro de Productos</h2>
+                        <h3 class="text-center">Registro de Producto</h3>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -17,11 +18,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="foto" class="form-label">Foto:</label>
-                            <input type="file" class="form-control" id="foto" name="foto" required autocomplete="off">
+                            <input type="file" class="form-control" id="foto" name="foto" required>
                         </div>
                         <div class="mb-3">
-                            <label for="categoria_id" class="form-label">Categoria:</label>
-                            <select name="categoria_id" id="categoria_id" class="form-control">
+                            <label for="categoria_id" class="form-label">Categoría:</label>
+                            <select name="categoria_id" id="categoria_id" class="form-select" required>
                                 @foreach ($categorias as $categoria)
                                     <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                                 @endforeach
@@ -29,28 +30,31 @@
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción:</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required autocomplete="off" ></textarea>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="precio_por_dia" class="form-label">Precio por día:</label>
-                            <input type="number" class="form-control" id="precio_por_dia" name="precio_por_dia" step="0.01" required autocomplete="off" onkeydown="return soloNumeros(event)">
+                            <input type="number" class="form-control" id="precio_por_dia" name="precio_por_dia" step="0.01" required onkeydown="return soloNumeros(event)">
                         </div>
                         <div class="mb-3">
                             <label for="certificado_confiabilidad" class="form-label">Certificado de confiabilidad:</label>
-                            <input type="file" class="form-control" id="certificado_confiabilidad" name="certificado_confiabilidad" accept=".pdf,.doc,.docx" required>
+                            <input type="file" class="form-control" id="certificado_confiabilidad" name="certificado_confiabilidad" accept=".pdf,.doc,.docx">
                         </div>
-                        <button type="submit" style="background-color: #002366;" class="btn btn-primary mb-3" class="btn btn-primary btn-block">Registrar Producto</button>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('producto.index') }}" style="background-color: #053b9e;" class="btn btn-secondary">Regresar</a>
+                            <button type="submit"  style="background-color: #002366;" class="btn btn-primary">Registrar Producto</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <script>
 function soloLetras(event) {
     var key = event.key;
-    var isLetter = /^[A-Za-z]$/;
+    var isLetterOrSpace = /^[A-Za-z\s]$/; // Permite letras y espacios
     var isControlKey = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key);
 
     // Permite las teclas de control
@@ -58,29 +62,28 @@ function soloLetras(event) {
         return true;
     }
 
-    // Bloquea la entrada si no es una letra
-    if (!isLetter.test(key)) {
+    // Bloquea la entrada si no es una letra o un espacio
+    if (!isLetterOrSpace.test(key)) {
         event.preventDefault();
         return false;
     }
     return true;
 }
+
 function soloNumeros(event) {
-        var key = event.key;
-        var isNumber = /^[0-9]$/;
+    var key = event.key;
+    var isNumber = /^[0-9]$/;
 
-        // Permite las teclas de control (como backspace, delete, tab, etc.)
-        if (event.key.length > 1) {
-            return true;
-        }
-
-        if (!isNumber.test(key)) {
-            event.preventDefault(); // Evita que se ingrese un carácter no permitido
-            return false;
-        }
+    // Permite las teclas de control (como backspace, delete, tab, etc.)
+    if (event.key.length > 1) {
         return true;
     }
 
+    if (!isNumber.test(key)) {
+        event.preventDefault(); // Evita que se ingrese un carácter no permitido
+        return false;
+    }
+    return true;
+}
 </script>
-
 @endsection

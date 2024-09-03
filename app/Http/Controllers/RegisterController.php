@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\RegistroExitoso;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
     public function create() {
         return view('auth.register');
     }
+
 
     public function store(Request $request)
     {
@@ -41,9 +45,20 @@ class RegisterController extends Controller
 
         $user->save();
 
+
+        Log::info('Usuario creado: ' . $user->email);
+
+        try {
+            $user->notify(new RegistroExitoso());
+            Log::info('Notificación enviada a: ' . $user->email);
+        } catch (\Exception $e) {
+            Log::error('Error al enviar el correo: ' . $e->getMessage());
+        }
         auth()->login($user);
 
         return redirect()->to('/');
+
+
     }
 
 }

@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rent-It</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css">
-  <link href="template/css/styles.css" rel="stylesheet" />
+  <link href="{{asset('template/css/styles.css')}}" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="css/pestañas.css">
-  <link rel="stylesheet" href="css/navbar.css">
-  <link rel="shortcut icon" href="img/rent-it.ico" type="image/x-icon">
+  <link rel="stylesheet" href="{{asset('css/pestañas.css')}}">
+  <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
+  <link rel="shortcut icon" href="{{asset('img/rent-it.ico')}}" type="image/x-icon">
+  <script src="https://js.stripe.com/v3/"></script>
 
   {{-- <link rel="stylesheet" href="css/bootstrap.min.css"> --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

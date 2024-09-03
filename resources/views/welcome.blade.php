@@ -2,7 +2,11 @@
 
 @section('content')
 <!-- Productos -->
-
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="row justify-content-center">
     @if ($productos->isEmpty())
         <p>No se encontraron productos.</p>

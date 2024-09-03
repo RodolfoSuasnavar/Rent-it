@@ -1,22 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
+
 
 class PasswordResetController extends Controller
 {
-    public function request()
+    public function showLinkRequestForm()
     {
         return view('auth.passwords.email');
     }
 
-    public function email(Request $request)
+    public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
 
@@ -24,17 +23,22 @@ class PasswordResetController extends Controller
             $request->only('email')
         );
 
+        // Depuración
+        \Log::info('Password reset status:', ['status' => $status]);
+
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
+            ? back()->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
     }
 
-    public function reset($token)
+    public function showResetForm(Request $request, $token = null)
     {
-        return view('auth.passwords.reset', ['token' => $token]);
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
     }
 
-    public function update(Request $request)
+    public function reset(Request $request)
     {
         $request->validate([
             'token' => 'required',
@@ -45,20 +49,16 @@ class PasswordResetController extends Controller
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->setRememberToken(Str::random(60));
-
+                $user->password = Hash::make($password);
                 $user->save();
+
+                Auth::login($user);
             }
         );
 
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+            ? redirect()->route('welcome')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
-
-
-
 
 }

@@ -34,4 +34,21 @@ class AdminController extends Controller
 
         ], compact('usuarios', 'productos', 'rentas', 'contactos', 'categorias'));
     }
+
+    public function verProductos($id)
+    {
+        // Buscar la categoría por ID
+        $categoria = Categoria::findOrFail($id);
+
+        // Obtener los productos asociados a la categoría
+        $productos = Producto::where('categoria_id', $id)->get();
+
+        // Retornar la vista con los datos de la categoría y sus productos
+        return view('admin.productos.index', compact('categoria', 'productos'));
+    }
+
+
+
+
+
 }

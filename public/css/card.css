@@ -1,0 +1,97 @@
+/* resources/css/app.css */
+
+/* Estilos globales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Estilo para el botón de regresar */
+.btn-primary {
+    background-color: #002366;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #001f3f;
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Tarjeta principal de productos */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    background-color: #fff;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-header {
+    padding: 1rem;
+    background-color: #f8f9fa; /* Fondo ligero para el encabezado */
+}
+
+.card-header h5 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px; /* Ajusta según sea necesario */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+}
+
+.card-body.text-center {
+    text-align: center; /* Centra el texto dentro del cuerpo de la tarjeta */
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 1rem; /* Asegura que haya espacio antes del botón */
+}
+
+/* Estilo para las tarjetas de producto */
+.card.border-light {
+    border: 1px solid #ddd; /* Borde ligero */
+    border-radius: 0.5rem; /* Bordes redondeados */
+}
+
+.card-img-top {
+    border-bottom: 1px solid #ddd; /* Línea divisoria entre la imagen y el contenido */
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* Elimina efectos de movimiento en hover */
+.card:hover {
+    transform: none;
+    box-shadow: none;
+}
