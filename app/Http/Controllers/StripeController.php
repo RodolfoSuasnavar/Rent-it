@@ -33,11 +33,29 @@ class StripeController extends Controller
         // Configura la clave secreta de Stripe
         Stripe::setApiKey(config('services.stripe.secret'));
 
-    // Recupera los datos del formulario
-    $producto_id = $request->input('producto_id');
-    $start_date = $request->input('start_date');
-    $end_date = $request->input('end_date');
-    $total = $request->input('total');
+        // Recupera los datos del formulario
+        $producto_id = $request->input('producto_id');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        $total = $request->input('total');
+
+        // Verifica si el producto ya está rentado en las fechas seleccionadas
+        $existingRenta = Renta::where('producto_id', $producto_id)
+            ->where(function($query) use ($start_date, $end_date) {
+                $query->whereBetween('fecha_inicio', [$start_date, $end_date])
+                      ->orWhereBetween('fecha_final', [$start_date, $end_date])
+                      ->orWhere(function ($query) use ($start_date, $end_date) {
+                          $query->where('fecha_inicio', '<=', $start_date)
+                                ->where('fecha_final', '>=', $end_date);
+                      });
+            })
+            ->first();
+
+        // Si ya existe una renta en ese periodo, mostramos un error
+        if ($existingRenta) {
+            Session::flash('error', 'Este producto ya está rentado en las fechas seleccionadas.');
+            return redirect()->back();
+        }
 
         try {
             // Crea un cliente en Stripe
@@ -68,7 +86,11 @@ class StripeController extends Controller
                 'tipo_pago' => 'Stripe', // Tipo de pago
                 // 'stripe_charge_id' => $charge->id, // Omitido
             ]);
+
+
+            //colocado
             $producto = Producto::find($producto_id);
+
 
             // Enviar correo al dueño del producto
             Mail::to($producto->user->email)->send(new ProductRented($renta));

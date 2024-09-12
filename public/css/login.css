@@ -9,8 +9,11 @@ body {
     border-radius: 0;
     overflow: hidden;
     display: flex;
-    height: 85vh; /* Asegurar que la tarjeta ocupe toda la altura de la vista */
+    height: auto; /* Asegurar que la tarjeta ocupe toda la altura de la vista */
+    overflow-x: hidden;
 }
+
+
 
 .cardimg {
     object-fit: cover;
@@ -29,7 +32,12 @@ body {
 .card-body {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrar verticalmente el contenido del formulario */align-items: center; /* Centrar horizontalmente el contenido del formulario */padding: 10px; /* Ajustar el padding para mantener el tamaño compacto */width: 50%; /* El contenido del formulario ocupa el 50% del ancho de la tarjeta */height: 100%; /* Asegurar que el contenido del formulario ocupe toda la altura de la tarjeta */box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho y alto */
+    justify-content: center; /* Centrar verticalmente el contenido del formulario */
+    align-items: center; /* Centrar horizontalmente el contenido del formulario */
+    padding: 10px; /* Ajustar el padding para mantener el tamaño compacto */
+    width: 50%; /* El contenido del formulario ocupa el 50% del ancho de la tarjeta */
+    height: 100%; /* Asegurar que el contenido del formulario ocupe toda la altura de la tarjeta */
+    box-sizing: border-box; /* Incluir padding y border en el cálculo del ancho y alto */
 }
 
 form {
@@ -73,12 +81,51 @@ pa:hover {
     text-decoration: underline;
 }
 
+/* Para dispositivos pequeños */
 @media (max-width: 768px) {
+    .card {
+        flex-direction: column; /* Coloca la imagen arriba del formulario en pantallas pequeñas */
+        height: auto; /* Permitir que la altura sea ajustable */
+    }
+
     .cardimg, .card-body {
-        width: 100%; /* En pantallas pequeñas, hacer que la imagen y el contenido ocupen todo el ancho */
+        width: 100%; /* Ocupan todo el ancho en pantallas pequeñas */
+        height: auto; /* Ajustar la altura para adaptarse al contenido */
     }
 
     .rent-it-text {
-        font-size: 2rem; /* Reducir el tamaño del texto en pantallas pequeñas */
+        font-size: 3rem; /* Reducir el tamaño del texto */
+    }
+
+    form {
+        width: 90%; /* Asegurar que el formulario no sea demasiado ancho */
+    }
+
+    button {
+        width: 100%; /* El botón ocupará todo el ancho disponible */
     }
 }
+
+/* Ajustes para pantallas medianas (entre móviles y tablets) */
+@media (max-width: 1024px) {
+    .card-body {
+        padding: 20px; /* Aumentar un poco el padding en tablets */
+    }
+
+    .form-outline input {
+        font-size: 1rem; /* Ajustar el tamaño de los campos de entrada en tablets */
+    }
+}
+
+/* Para pantallas grandes */
+@media (min-width: 1200px) {
+    .card {
+        height: 70vh; /* Reducir la altura en pantallas muy grandes */
+    }
+
+    .rent-it-text {
+        font-size: 4rem; /* Aumentar el tamaño del texto en pantallas grandes */
+    }
+}
+
+

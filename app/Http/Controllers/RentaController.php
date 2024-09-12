@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Producto;
@@ -23,8 +23,25 @@ class RentaController extends Controller
         ->where('id', '!=', $producto->id) // Excluye el producto actual
         ->get();
 
+    // Obtener todas las fechas ocupadas para el producto
+    $fechasOcupadas = Renta::where('producto_id', $producto->id)
+        ->get(['fecha_inicio', 'fecha_final'])
+        ->map(function ($renta) {
+            $dates = [];
+            $start = Carbon::parse($renta->fecha_inicio);
+            $end = Carbon::parse($renta->fecha_final);
+            while ($start <= $end) {
+                $dates[] = $start->format('Y-m-d');
+                $start->addDay();
+            }
+            return $dates;
+        })
+        ->flatten()
+        ->unique()
+        ->values()
+        ->toArray();
 
-        return view('renta.index', compact('producto', 'productosRelacionados'));
+        return view('renta.index', compact('producto', 'productosRelacionados', 'fechasOcupadas'));
 
     }
     public function misRentados()
@@ -48,5 +65,25 @@ class RentaController extends Controller
         return view('renta.misRentados', compact('productosRentados', 'rentas'));
     }
 
+    public function verificarDisponibilidad(Request $request)
+    {
+        $productoId = $request->input('producto_id');
+        $startDate = Carbon::parse($request->input('start_date'));
+        $endDate = Carbon::parse($request->input('end_date'));
+
+        // Verificar si existe una reserva para este producto en las fechas seleccionadas
+        $rentaExistente = Renta::where('producto_id', $productoId)
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('fecha_inicio', [$startDate, $endDate])
+                      ->orWhereBetween('fecha_final', [$startDate, $endDate])
+                      ->orWhere(function ($query) use ($startDate, $endDate) {
+                          $query->where('fecha_inicio', '<=', $startDate)
+                                ->where('fecha_final', '>=', $endDate);
+                      });
+            })
+            ->exists();
+
+        return response()->json(['available' => !$rentaExistente]);
+    }
 
 }
