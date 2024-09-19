@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ProductRented;
-
+use App\Mail\UserRentedProduct;
 
 
 // use Illuminate\Http\Request;
@@ -94,7 +94,7 @@ class StripeController extends Controller
 
             // Enviar correo al dueño del producto
             Mail::to($producto->user->email)->send(new ProductRented($renta));
-
+            Mail::to($renta->user->email)->send(new UserRentedProduct($renta));
 
 
             // Si todo va bien, puedes redirigir con un mensaje de éxito

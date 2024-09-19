@@ -117,6 +117,10 @@
                 <p class="mb-0">Empresa: Code Master</p>
                 <p class="mb-0">Correo: codemastermx98@gmail.com</p>
                 <p class="mb-0">Teléfono: 9191523317</p>
+                <p class="mb-0">
+                    <a href="{{ asset('docs/Política de privacidad_RENTIT.pdf') }}" style="text-decoration: none; color: inherit;">Políticas de Privacidad</a>
+                </p>
+
             <p class="mb-0">&copy; Code Master</p>
 
             </div>

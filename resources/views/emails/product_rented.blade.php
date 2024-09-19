@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Product Rented</title>
+    <title>Producto alquilado</title>
 </head>
 <body>
-    <p>Hola,</p>
+    <p>Hola usuario</p>
     <p>Se ha rentado el producto:</p>
     <ul>
         <li>Nombre del producto: {{ $renta->producto->nombre }}</li>

@@ -25,6 +25,7 @@ class RegisterController extends Controller
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|unique:users|digits:10',
             'password' => 'required|string|min:8|confirmed',
+            'terminos' => 'accepted',
         ], [
             'required' => 'El campo :attribute no es válido.',
             'email' => 'El campo :attribute debe ser una dirección de correo válida.',
@@ -32,6 +33,7 @@ class RegisterController extends Controller
             'unique' => 'El campo :attribute ya está registrado.',
             'confirmed' => 'Las contraseñas no coinciden.',
             'min' => 'El campo :attribute debe tener al menos :min caracteres.',
+            'accepted' => 'El campo :attribute se necesita aceptar los terminos y condiciones.',
         ]);
 
         $user = new User();
