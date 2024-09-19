@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('css/contenedor.css')}}">
+    <link rel="stylesheet" href="{{asset('css/producto.css')}}">
     <link rel="shortcut icon" href="{{asset('img/rent-it.ico')}}" type="image/x-icon">
 
     {{-- <link rel="stylesheet" href="css/footer.css"> --}}
@@ -90,15 +91,16 @@
 
 
 
-    <!-- Sección de Productos -->
-    <section class="page-section" id="portfolio">
-        <div class="container">
-            <h2 class="text-center text-secondary mb-4">Nuestros Productos</h2>
-            <div class="row">
-                @yield('content')
-            </div>
+ <!-- Sección de Productos -->
+<section class="page-section" id="portfolio">
+    <div class="container">
+        <h2 class="text-center text-secondary mb-4">Nuestros Productos</h2>
+        <div class="row" id="product-grid">
+            @yield('content')
         </div>
-    </section>
+    </div>
+</section>
+
 
 
 
