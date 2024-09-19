@@ -14,9 +14,7 @@
 
 
     <div class="container">
-    <br><br><br><br><br><br><br><br>
-    <br><br>
-
+    <br><br><br><br><br><br><br>
 
         <h2>Regístrate en Rent-It</h2>
         <form action="{{ route('register.store') }}" method="POST">
