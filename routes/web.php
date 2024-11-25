@@ -13,6 +13,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\ProductApiController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -120,15 +121,20 @@ Route::get('/logout', [SessionsController::class, 'destroy'])->middleware('auth'
 
 // Route::get('clientes/clientes', [ClienteController::class, 'index'])->name('clientes.clientes');
 
-
+Route::get('/productos', [ProductApiController::class,'productApi']);
 
 //restablecer contraseña
 Route::get('password/reset', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
+Route::middleware('api')->get('user', function (Request $request) {
+    return $request->user();  // Obtener datos del usuario autenticado
+    
+});
+Route::post('register', [AuthController::class, 'register']);  
+Route::post('login', [AuthController::class, 'login']);
 
-// Route::get('clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 
 
 
