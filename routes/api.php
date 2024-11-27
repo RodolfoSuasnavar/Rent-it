@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProductApiController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::middleware('api')->get('user', function (Request $request) {
 });
 Route::post('login', [AuthController::class, 'login']);
 Route::get('/productos', [ProductApiController::class,'productApi']);
+Route::get('category',[CategoryController::class, 'categoryApi']);
+Route::get('category-herramientas',[CategoryController::class, 'categoryHomeApi']);
+Route::get('category-rudo',[CategoryController::class, 'categoryHeavyApi']);
 
 
 

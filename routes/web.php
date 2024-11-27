@@ -14,7 +14,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProductApiController;
-
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
 
 //Auth::routes();
@@ -134,6 +134,9 @@ Route::middleware('api')->get('user', function (Request $request) {
 });
 Route::post('register', [AuthController::class, 'register']);  
 Route::post('login', [AuthController::class, 'login']);
+Route::get('category',[CategoryController::class, 'categoryApi']);
+Route::get('category-herramientas',[CategoryController::class, 'categoryHomeApi']);
+Route::get('category-rudo',[CategoryController::class, 'categoryHeavyApi']);
 
 
 
