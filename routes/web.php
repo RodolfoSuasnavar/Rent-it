@@ -132,12 +132,12 @@ Route::middleware('api')->get('user', function (Request $request) {
     return $request->user();  // Obtener datos del usuario autenticado
     
 });
-Route::post('register', [AuthController::class, 'register']);  
-Route::post('login', [AuthController::class, 'login']);
+Route::post('registerApi', [AuthController::class, 'register']);  
+Route::post('loginApi', [AuthController::class, 'login']);
 Route::get('category',[CategoryController::class, 'categoryApi']);
 Route::get('category-herramientas',[CategoryController::class, 'categoryHomeApi']);
 Route::get('category-rudo',[CategoryController::class, 'categoryHeavyApi']);
-
+Route::post('/profile/{id}', [AuthController::class, 'updateProfile']);
 
 
 

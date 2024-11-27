@@ -38,16 +38,17 @@ Route::post('/api/google-login', function (Request $request) {
         'user' => $user,
     ]);
 });
-Route::post('register', [AuthController::class, 'register']);  
+Route::post('registerApi', [AuthController::class, 'register']);  
  
 Route::middleware('api')->get('user', function (Request $request) {
     return $request->user();  
 });
-Route::post('login', [AuthController::class, 'login']);
+Route::post('loginApi', [AuthController::class, 'login']);
 Route::get('/productos', [ProductApiController::class,'productApi']);
 Route::get('category',[CategoryController::class, 'categoryApi']);
 Route::get('category-herramientas',[CategoryController::class, 'categoryHomeApi']);
 Route::get('category-rudo',[CategoryController::class, 'categoryHeavyApi']);
+Route::post('/profile/{id}', [AuthController::class, 'updateProfile']);
 
 
 

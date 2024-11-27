@@ -66,6 +66,7 @@ class AuthController extends Controller
             'nombre' => 'required|string|max:255',
             'aPaterno' => 'required|string|max:255',
             'aMaterno' => 'required|string|max:255',
+            'telefono' => 'required|digits:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
         ]);
@@ -75,15 +76,16 @@ class AuthController extends Controller
             'nombre' => $request->nombre,
             'aPaterno' => $request->aPaterno,
             'aMaterno' => $request->aMaterno,
+            'telefono' => $request->telefono,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
-        // Genera el token de autenticación para el usuario
+        
         $token = $user->createToken('authToken')->plainTextToken;
 
-        // Retornar la respuesta exitosa con el token y los datos del usuario
+        
         return response()->json([
             'status' => 'success',
             'user' => $user,
@@ -91,22 +93,29 @@ class AuthController extends Controller
         ], 201);
     }
 
-    // public function register(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'nombre'=>'requiered|regex:/^[\pL\s]+$/u',
-    //         'email' => 'required|email|unique:users,email',
-    //         'password' => 'required|string|min:6',
-    //     ]);
+    public function updateProfile(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $request->validate([
+            'name' => 'required',
+            'aPaterno' => 'required|string|max:255',
+            'aMaterno' => 'required|string|max:255',
+            'telefono' => 'required|digits:10',
+            'email' => 'required',
+           
+        ]);
 
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => 'Validación fallida'], 400);
-    //     }
 
-    //     $user = User::create([
-    //         'nombre'=>$request->nombre,
-    //         'email' => $request->email,
-    //         'password'=>$request->password
-    //         ]);
-    //     }
+        $user->name = $request->name;
+        $user->aPaterno = $request->aPaterno;
+        $user->aMaterno = $request->aMaterno;
+        $user->telefono = $request->telefono;
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+        ], 200);
+    }
 }
