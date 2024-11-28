@@ -17,11 +17,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-    
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('authToken')->plainTextToken;
-    
+
             return response()->json([
                 'status' => 'success',
                 'user' => $user,
@@ -30,34 +30,6 @@ class AuthController extends Controller
         } else {
             return response()->json(['status' => 'error', 'message' => 'Credenciales incorrectas. Intenta de nuevo.'], 401);
         }
-    }
-
-
-    public function googleLogin(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'google_token' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => 'Google token es requerido'], 400);
-        }
-
-        // Validate Google token
-        $googleClient = new Google_Client(['client_id' => 'YOUR_GOOGLE_CLIENT_ID']);
-        $payload = $googleClient->verifyIdToken($request->google_token);
-
-        if ($payload) {
-            $email = $payload['email'];
-            $user = User::firstOrCreate(['email' => $email]);
-
-            // Create JWT token for the user
-            $token = JWTAuth::fromUser($user);
-
-            return response()->json(['token' => $token, 'user' => $user]);
-        }
-
-        return response()->json(['error' => 'Google token inválido'], 400);
     }
 
     public function register(Request $request)
@@ -82,10 +54,10 @@ class AuthController extends Controller
         ]);
 
         event(new Registered($user));
-        
+
         $token = $user->createToken('authToken')->plainTextToken;
 
-        
+
         return response()->json([
             'status' => 'success',
             'user' => $user,
@@ -102,7 +74,7 @@ class AuthController extends Controller
             'aMaterno' => 'required|string|max:255',
             'telefono' => 'required|digits:10',
             'email' => 'required',
-           
+
         ]);
 
 
@@ -116,6 +88,6 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'user' => $user,
-        ], 200);
+        ], 200);
     }
 }

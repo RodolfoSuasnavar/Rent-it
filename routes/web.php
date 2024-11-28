@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RentaController;
 use App\Http\Controllers\PortafolioController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\CategoriaController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 //Auth::routes();
@@ -65,8 +68,8 @@ Route::group(['middleware' => ['auth', 'auth.admin']], function () {
 
     Route::get('/admin/categorias/{id}/productos', [AdminController::class, 'verProductos'])->name('admin.productos.ver');
 
-    Route::get('/admin/categoria/create',[CategoriaController::class, 'create'])->name('categoria.crear');
-    Route::post('/admin/categoria/create',[CategoriaController::class, 'store'])->name('categoria.store');
+    Route::get('/admin/categoria/create', [CategoriaController::class, 'create'])->name('categoria.crear');
+    Route::post('/admin/categoria/create', [CategoriaController::class, 'store'])->name('categoria.store');
     Route::get('/admin/categoria/show/{id}', [CategoriaController::class, 'show'])->name('categoria.show');
     Route::get('/admin/categoria/edit/{id}', [CategoriaController::class, 'edit'])->name('categoria.edit');
     Route::put('/admin/categoria/update/{id}', [CategoriaController::class, 'update'])->name('categoria.update');
@@ -92,8 +95,7 @@ Route::group(['middleware' => ['auth', 'auth.user']], function () {
     //renta
     route::get('/renta/{id}', [RentaController::class, 'index'])->name('renta.index');
     Route::get('/mis-rentados', [RentaController::class, 'misRentados'])->name('renta.misRentados');
-
-    });
+});
 
 
 
@@ -121,7 +123,7 @@ Route::get('/logout', [SessionsController::class, 'destroy'])->middleware('auth'
 
 // Route::get('clientes/clientes', [ClienteController::class, 'index'])->name('clientes.clientes');
 
-Route::get('/productos', [ProductApiController::class,'productApi']);
+Route::get('/productos', [ProductApiController::class, 'productApi']);
 
 //restablecer contraseña
 Route::get('password/reset', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
@@ -130,18 +132,17 @@ Route::get('password/reset/{token}', [PasswordResetController::class, 'showReset
 Route::post('password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
 Route::middleware('api')->get('user', function (Request $request) {
     return $request->user();  // Obtener datos del usuario autenticado
-    
+
 });
-Route::post('registerApi', [AuthController::class, 'register']);  
-Route::post('loginApi', [AuthController::class, 'login']);
-Route::get('category',[CategoryController::class, 'categoryApi']);
-Route::get('category-herramientas',[CategoryController::class, 'categoryHomeApi']);
-Route::get('category-rudo',[CategoryController::class, 'categoryHeavyApi']);
-Route::post('/profile/{id}', [AuthController::class, 'updateProfile']);
 
-
-
-
-// Auth::routes(['reset' => true]);
-
+Route::middleware('api')->group(function () {
+    Route::post('registerApi', [AuthController::class, 'register']);
+    Route::post('loginApi', [AuthController::class, 'login']);
+    Route::get('/productos', [ProductApiController::class, 'productApi']);
+    Route::get('category', [CategoryController::class, 'categoryApi']);
+    Route::get('category-herramientas', [CategoryController::class, 'categoryHomeApi']);
+    Route::get('category-rudo', [CategoryController::class, 'categoryHeavyApi']);
+    Route::post('/profile/{id}', [AuthController::class, 'updateProfile']);
+    Route::post('/card', [CardController::class, 'toggleCart']);
+});
 
