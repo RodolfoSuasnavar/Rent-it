@@ -90,4 +90,10 @@ class AuthController extends Controller
             'user' => $user,
         ], 200);
     }
+
+    public function logoutapi()
+    {
+        Auth::logout();
+        return response()->json(['status' => 'success', 'message' => 'Sesión cerrada correctamente']);
+    }
 }

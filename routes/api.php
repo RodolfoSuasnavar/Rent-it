@@ -8,6 +8,8 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\CategoryController;
 use App\Models\User;
+use App\Http\Controllers\StripeApiController;
+use App\Http\Controllers\StripeWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,18 +31,18 @@ Route::middleware('api')->get('user', function (Request $request) {
 });
 
 Route::middleware('api')->group(function () {
-Route::post('registerApi', [AuthController::class, 'register']);
-Route::post('loginApi', [AuthController::class, 'login']);
-Route::get('/productos', [ProductApiController::class,'productApi']);
-Route::get('category',[CategoryController::class, 'categoryApi']);
-Route::get('category-herramientas',[CategoryController::class, 'categoryHomeApi']);
-Route::get('category-rudo',[CategoryController::class, 'categoryHeavyApi']);
-Route::post('/profile/{id}', [AuthController::class, 'updateProfile']);
-// Route::post('card',[CardController::class,'toggleCart']);
-Route::post('/card', [CardController::class, 'toggleCart']);
-Route::post('/cart/user', [CardController::class, 'cartUser']);
+    Route::post('registerApi', [AuthController::class, 'register']);
+    Route::post('loginApi', [AuthController::class, 'login']);
+    Route::post('/logoutapi', [AuthController::class, 'logoutapi']);
+    Route::get('/productos', [ProductApiController::class, 'productApi']);
+    Route::get('category', [CategoryController::class, 'categoryApi']);
+    Route::get('category-herramientas', [CategoryController::class, 'categoryHomeApi']);
+    Route::get('category-rudo', [CategoryController::class, 'categoryHeavyApi']);
+    Route::put('/profile/{id}', [AuthController::class, 'updateProfile']);
+    // Route::post('card',[CardController::class,'toggleCart']);
+    Route::post('/card', [CardController::class, 'toggleCart']);
+    Route::post('/cart/user', [CardController::class, 'cartUser']);
+    Route::post('/stripe/payment', [StripeApiController::class, 'createPaymentLink']);
+    Route::post('/stripe/webhook', [StripeWebhookController::class,'handleWebhook']);
 
 });
-
-
-
