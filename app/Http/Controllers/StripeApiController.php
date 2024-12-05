@@ -28,15 +28,6 @@ class StripeApiController extends Controller
                 ],
             ]);
 
-            $paymentIntent = PaymentIntent::create([
-                'amount' => $validatedData['amount'],
-                'currency' => $validatedData['currency'],
-                'metadata' => [
-                    'user_id' => $validatedData['user_id'],
-                ],
-                'payment_method_types' => ['card'],
-            ]);
-
             $paymentLink = PaymentLink::create([
                 'line_items' => [[
                     'price' => $price->id,
@@ -50,7 +41,6 @@ class StripeApiController extends Controller
             return response()->json([
                 'success' => true,
                 'url' => $paymentLink->url,
-                'paymentIntent' => $paymentIntent->client_secret,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -59,5 +49,4 @@ class StripeApiController extends Controller
             ], 400);
         }
     }
-
 }

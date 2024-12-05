@@ -30,9 +30,6 @@ class StripeController extends Controller
 
     public function processPayment(Request $request)
     {
-        // Configura la clave secreta de Stripe
-        Stripe::setApiKey(config('services.stripe.secret'));
-
         // Recupera los datos del formulario
         $producto_id = $request->input('producto_id');
         $start_date = $request->input('start_date');
@@ -41,13 +38,13 @@ class StripeController extends Controller
 
         // Verifica si el producto ya está rentado en las fechas seleccionadas
         $existingRenta = Renta::where('producto_id', $producto_id)
-            ->where(function($query) use ($start_date, $end_date) {
+            ->where(function ($query) use ($start_date, $end_date) {
                 $query->whereBetween('fecha_inicio', [$start_date, $end_date])
-                      ->orWhereBetween('fecha_final', [$start_date, $end_date])
-                      ->orWhere(function ($query) use ($start_date, $end_date) {
-                          $query->where('fecha_inicio', '<=', $start_date)
-                                ->where('fecha_final', '>=', $end_date);
-                      });
+                    ->orWhereBetween('fecha_final', [$start_date, $end_date])
+                    ->orWhere(function ($query) use ($start_date, $end_date) {
+                        $query->where('fecha_inicio', '<=', $start_date)
+                            ->where('fecha_final', '>=', $end_date);
+                    });
             })
             ->first();
 
@@ -100,14 +97,10 @@ class StripeController extends Controller
             // Si todo va bien, puedes redirigir con un mensaje de éxito
             Session::flash('success', 'Pago realizado con éxito');
             return redirect()->route('payment.success');
-
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
             return redirect()->route('payment.cancel');
         }
-
-
-
     }
 
     public function success()
@@ -121,6 +114,4 @@ class StripeController extends Controller
         // Lógica si el usuario cancela el pago
         return view('payment.cancel');
     }
-
-
 }
