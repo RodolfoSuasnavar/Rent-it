@@ -147,6 +147,10 @@ Route::middleware('api')->group(function () {
     Route::get('category-rudo', [CategoryController::class, 'categoryHeavyApi']);
     Route::put('/profile/{id}', [AuthController::class, 'updateProfile']);
     Route::post('/card', [CardController::class, 'toggleCart']);
+    Route::post('/card/delete', [CardController::class, 'removeFromCart']);
     Route::post('/stripe/payment', [StripeApiController::class, 'createPaymentLink']);
     Route::post('/stripe/webhook', [StripeWebhookController::class,'handleWebhook']);
+
+    Route::post('passwords/email', [AuthController::class, 'sendResetLinkEmail']);
+    Route::post('passwords/reset', [AuthController::class, 'resetPassword']);
 });

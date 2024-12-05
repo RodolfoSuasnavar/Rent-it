@@ -42,6 +42,9 @@ class StripeApiController extends Controller
                     'price' => $price->id,
                     'quantity' => 1,
                 ]],
+                'metadata' => [
+                    'user_id' => $validatedData['user_id'],
+                ],
             ]);
 
             return response()->json([

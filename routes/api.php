@@ -42,7 +42,10 @@ Route::middleware('api')->group(function () {
     // Route::post('card',[CardController::class,'toggleCart']);
     Route::post('/card', [CardController::class, 'toggleCart']);
     Route::post('/cart/user', [CardController::class, 'cartUser']);
+    Route::post('/card/delete', [CardController::class, 'removeFromCart']);
     Route::post('/stripe/payment', [StripeApiController::class, 'createPaymentLink']);
-    Route::post('/stripe/webhook', [StripeWebhookController::class,'handleWebhook']);
+    Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 
+    Route::post('passwords/email', [AuthController::class, 'sendResetLinkEmail']);
+    Route::post('passwords/reset', [AuthController::class, 'resetPassword']);
 });

@@ -11,10 +11,6 @@ class CardController extends Controller
 {
     public function toggleCart(Request $request)
     {
-        Log::info('Datos recibidos:', $request->all());
-
-        Log::info('User ID: ' . $request->input('user_id'));
-        Log::info('Product ID: ' . $request->input('product_id'));
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
             'product_id' => 'required|integer',
@@ -99,4 +95,48 @@ class CardController extends Controller
             ], 500);
         }
     }
+    public function removeFromCart(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer',
+            'product_id' => 'required|array',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Datos faltantes o inválidos',
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        try {
+            $userId = $request->input('user_id');
+            $productId = $request->input('product_id');
+
+            $deleted = Card::where('user_id', $userId)
+                ->whereIn('product_id', $productId)
+                ->where('is_card', true)
+                ->update(['is_card' => false]);
+
+            if ($deleted > 0) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Productos eliminados del carrito.',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No se encontraron productos en el carrito.',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Hubo un problema al procesar la solicitud.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }
