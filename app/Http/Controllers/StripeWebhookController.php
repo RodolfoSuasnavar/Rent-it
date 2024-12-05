@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Stripe\Webhook;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Stripe\Checkout\Session;
+
 class StripeWebhookController extends Controller
 {
     public function handleWebhook(Request $request)
     {
         $payload = file_get_contents('php://input');
-        Log::info('Webhook payload received', ['payload' => $payload]);
 
         if (!isset($_SERVER['HTTP_STRIPE_SIGNATURE'])) {
             Log::error('Missing Stripe signature header');
@@ -33,23 +34,18 @@ class StripeWebhookController extends Controller
             return response()->json(['error' => 'Webhook signature verification failed'], 400);
         }
 
-        Log::info('Stripe event received', ['type' => $event->type]);
+        if ($event->type == 'checkout.session.completed') {
+            /** @var Session */
+            $session = $event->data->object;
 
-        if ($event->type == 'payment_intent.succeeded') {
-            $paymentIntent = $event->data->object;
-
-            if (isset($paymentIntent->metadata->user_id)) {
-                $userId = $paymentIntent->metadata->user_id;
+            if (isset($session->metadata->user_id)) {
+                $userId = $session->metadata->user_id;
                 $user = User::find($userId);
-
-                Log::info('User found', ['user' => $user]);
 
                 if ($user) {
                     $cartItems = Card::where('user_id', $userId)
                         ->where('is_card', true)
                         ->get();
-
-                    Log::info('Cart items found', ['cartItems' => $cartItems]);
 
                     foreach ($cartItems as $cartItem) {
                         $cartItem->is_card = false;
