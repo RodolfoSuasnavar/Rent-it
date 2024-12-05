@@ -18,8 +18,6 @@ class StripeApiController extends Controller
         ]);
 
         try {
-            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
             $price = \Stripe\Price::create([
                 'unit_amount' => $validatedData['amount'],
                 'currency' => $validatedData['currency'],
